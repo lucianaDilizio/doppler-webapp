@@ -14,6 +14,7 @@ import { InjectAppServices } from '../../services/pure-di';
 import './ForgotPassword.css';
 import { FormattedMessageMarkdown } from '../../i18n/FormattedMessageMarkdown';
 import { Helmet } from 'react-helmet';
+import { connect } from 'formik';
 
 const fieldNames = {
   email: 'email',
@@ -34,9 +35,10 @@ const getFormInitialValues = () =>
  * @param { import('react-intl').InjectedIntl } props.intl
  * @param { import('../../services/pure-di').AppServices } props.dependencies
  */
-const ForgotPassword = ({ intl, dependencies: { dopplerLegacyClient } }) => {
+const ForgotPassword = ({ intl, location, dependencies: { dopplerLegacyClient } }) => {
   const _ = (id, values) => intl.formatMessage({ id: id }, values);
   const [sentTimes, setSentTimes] = useState(0);
+  const loginEmail = location.state ? location.state.email : '';
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
@@ -54,7 +56,7 @@ const ForgotPassword = ({ intl, dependencies: { dopplerLegacyClient } }) => {
     } finally {
       setSubmitting(false);
     }
-  };
+  }; 
 
   return (
     <main className="panel-wrapper">
@@ -97,6 +99,7 @@ const ForgotPassword = ({ intl, dependencies: { dopplerLegacyClient } }) => {
                   label={_('signup.label_email')}
                   required
                   placeholder={_('signup.placeholder_email')}
+                  value={loginEmail}
                 />
               </FieldGroup>
             </fieldset>

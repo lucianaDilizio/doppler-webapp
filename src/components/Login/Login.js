@@ -16,6 +16,7 @@ import RedirectToLegacyUrl from '../RedirectToLegacyUrl';
 import { InjectAppServices } from '../../services/pure-di';
 import { LoginErrorAccountNotValidated } from './LoginErrorAccountNotValidated';
 import { FormattedMessageMarkdown } from '../../i18n/FormattedMessageMarkdown';
+import { connect } from 'formik';
 
 const fieldNames = {
   user: 'user',
@@ -113,6 +114,18 @@ const Login = ({ intl, location, dependencies: { dopplerLegacyClient, sessionMan
     );
   }
 
+  const LinkToForgotPassword = connect(({formik: {values: {user}}}) => {
+    return <Link
+      to={{
+        pathname: '/login/reset-password',
+        state: { email: user },
+      }}
+      className="forgot-link"
+    >
+      {_('login.forgot_password')}
+    </Link>
+  });
+
   return (
     <main className="panel-wrapper">
       <Helmet>
@@ -156,9 +169,7 @@ const Login = ({ intl, location, dependencies: { dopplerLegacyClient, sessionMan
           <fieldset>
             <FormErrors />
             <SubmitButton className="button--round">{_('login.button_login')}</SubmitButton>
-            <Link to="/forgot-password" className="forgot-link">
-              {_('login.forgot_password')}
-            </Link>
+            <LinkToForgotPassword propiedad ='probando'/>            
           </fieldset>
         </FormWithCaptcha>
         <footer>
