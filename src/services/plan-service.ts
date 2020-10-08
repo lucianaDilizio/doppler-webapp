@@ -296,19 +296,4 @@ export class PlanService implements PlanHierarchy {
         };
     }
   };
-
-  getPreSelectedPlanTypePerPathType = (planType: PlanType, pathType: PathType) => {
-    switch (planType) {
-      case 'free':
-      case 'prepaid':
-        switch (pathType) {
-          case 'standard':
-            return 'prepaid';
-          default:
-            return 'monthly-deliveries';
-        }
-      default:
-        return planType;
-    }
-  };
 }
