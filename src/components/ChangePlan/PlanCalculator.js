@@ -141,7 +141,9 @@ const PlanCalculator = ({
                     <li className="tab--item" key={index}>
                       <Link
                         to={`/plan-selection/${pathType}/${type}`}
-                        className={type === state.selectedPlanType ? 'tab--link active' : 'tab--link'}
+                        className={
+                          type === state.selectedPlanType ? 'tab--link active' : 'tab--link'
+                        }
                       >
                         {type}
                       </Link>
